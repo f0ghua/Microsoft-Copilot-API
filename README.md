@@ -1,8 +1,7 @@
 
 
-# Windows Copilot API: a free LLM API powered by Microsoft Copilot
+#Microsoft-Copilot-API: a free LLM API powered by Microsoft Copilot
 
-![Windows Copilot API — a free, OpenAI-compatible API for your Microsoft Copilot account](assets/windows-copilot-api-banner.png)
 
 **Using your own Microsoft Copilot account.** No API key, no credits, no paid plan: it turns the free chat at [copilot.microsoft.com](https://copilot.microsoft.com) into an API you can call from code.
 
