@@ -1,0 +1,27 @@
+services:
+  copilot-api:
+    build: .
+    image: windows-copilot-api
+    ports:
+      - "8000:8000"
+    environment:
+      # Bind inside the container; the host port is set under `ports` above.
+      HOST: "0.0.0.0"
+      PORT: "8000"
+      # Self-imposed rate limit (see server/config.py). Tune to your account.
+      RATE_LIMIT_RPM: "12"
+      RATE_LIMIT_BURST: "4"
+      # Reject oversized text prompts before Copilot returns text-too-long.
+      # Set 0 to disable this bridge-side preflight check.
+      MAX_PROMPT_CHARS: "12000"
+      # Summarize oversized prompts in chunks instead of failing immediately.
+      AUTO_CHUNK_LONG_PROMPTS: "true"
+      LONG_PROMPT_CHUNK_CHARS: "9000"
+      MAX_LONG_PROMPT_CHUNKS: "20"
+      LONG_PROMPT_SUMMARY_CHARS: "900"
+    volumes:
+      # Persist the signed-in browser profile + cached token across restarts.
+      # Sign in once on the host (`python -m copilot login`) so this folder is
+      # populated; the container only does the headless token refresh.
+      - ./session:/app/session
+    restart: unless-stopped
